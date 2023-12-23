@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru_RU">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Раздел 5</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div class="left">
+        <button class="page-button" id="back-button">Назад</button>
+        <a href="#1" class="button-inside">Врач-рентгенолог</br>Шлокина Вера Владимировна</a>
+        <a href="#2" class="button-inside">Врач-рентгенолог</br>Коротыч Элеонора Геннадьевна</a>
+        <a href="#3" class="button-inside">Врач-рентгенолог</br>Кривцова Олеся Сергеевна</a>
+    </div>
+    <div class="right">
+        <div class="profile" id="1" style="display: flex;">
+            <div><img src="/Pic/ПЛАТНЫЕ фотографии/6. Рентгенологический кабинет/Шлокина Вера Владимировна.jpg"
+                    class="profile-photo" width="400px"></div>
+            <div class="profile-content">
+                <b style="font-size: 28px;">Врач-рентгенолог</br>Шлокина Вера Владимировна</b>
+                </br><b>Уровень образования, организация, выдавшая документ об образовании:</b>
+                </br> Белгородский государственный университет
+                </br><b>Дата окончания ВУЗа:</b>
+                </br>23.06.2008
+                </br><b>Аттестация:</b>
+                </br> 03.12.2019 по 03.12.2024, Приказ ДЗ № 100 от 03.12.2019;
+                </br> <b>Квалификационная категория</b>
+                </br>Высшая Рентгенология;
+                </br><b>Сертификации</b>
+                </br>№0177180887914 в 2019г. Рентгенология;
+            </div>
+        </div>
+
+        <div class="profile" id="2" style="display: flex;">
+            <div><img src="/Pic/ПЛАТНЫЕ фотографии/6. Рентгенологический кабинет/Коротыч Элеонора Геннадьевна.JPG"
+                    class="profile-photo" width="400px"></div>
+            <div class="profile-content">
+                <b style="font-size: 28px;">Врач-рентгенолог</br>Коротыч Элеонора Геннадьевна</b>
+                </br><b>Уровень образования, организация, выдавшая документ об образовании:</b>
+                </br> Северный государственный
+                медицинский университет (г.
+                Архангельск) Федерального
+                агентства по здравоохранению и
+                социальному развитию, г.
+                Архангельск
+                </br><b>Дата окончания ВУЗа:</b>
+                </br>06.23.2008
+                </br><b>Аттестация:</b>
+                </br> 03.12.2019 по
+                03.12.2024, Приказ ДЗ
+                № 100 от 03.12.2019;
+                </br> <b>Квалификационная категория</b>
+                </br>Высшая Рентгенология;
+                </br><b>Сертификации</b>
+                </br>№7827 00817175 в 2023г.
+                Рентгенология;
+            </div>
+        </div>
+
+        <div class="profile" id="3" style="display: flex;">
+            <div><img src="/Pic/ПЛАТНЫЕ фотографии/6. Рентгенологический кабинет/Кривцова Олеся Сергеевна.jpg"
+                    class="profile-photo" width="400px"></div>
+            <div class="profile-content">
+                <b style="font-size: 28px;">Врач-рентгенолог</br>Кривцова Олеся Сергеевна</b>
+                </br><b>Уровень образования, организация, выдавшая документ об образовании:</b>
+                </br> ФГАОУ ВПО "Белгородский
+                государственный национальный
+                исследовательский
+                университет"
+                </br><b>Дата окончания ВУЗа:</b>
+                </br>29.06.2007
+                </br><b>Сертификации</b>
+                </br>№313200003531 в 2020г.
+                    Рентгенология
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <script>
+        document.addEventListener("copy", function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        document.getElementById("back-button").addEventListener("click", function () {
+            window.location.href = "xray-oms.html";
+        });
+
+        // JavaScript код для сохранения и восстановления позиции прокрутки при переходе по якорям
+        document.addEventListener('DOMContentLoaded', function () {
+            var anchors = document.querySelectorAll('a[href^="#"]');
+            anchors.forEach(function (anchor) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    var targetId = this.getAttribute('href').substring(1);
+                    var targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // Сохраняем текущую позицию прокрутки
+                        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+                        // Переходим по якорю
+                        window.location.hash = targetId;
+
+                        // Восстанавливаем позицию прокрутки
+                        document.documentElement.scrollTop = window.scrollY = scrollTop;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

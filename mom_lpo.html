@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru_RU">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Раздел 5</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div class="left-column">
+        <button class="page-button" id="back-button">Назад</button>
+        <button class="page-button" id="btn1">Кариес зубов</button>
+        <button class="page-button" id="btn2">Пульпит</button>
+        <button class="page-button" id="btn3">Апикальный периодонтит</button>
+        <button class="page-button" id="btn4">Памятка для пациента после лечения зуба</button>
+        <button class="page-button" id="btn5">Гигиена полости рта</button>
+        <button class="page-button" id="btn6">Методы оказания ортопедической помощи</button>
+        <button class="page-button" id="btn7">Памятка по уходу за протезами на имплантатах, мостовидными протезами</button>
+        <button class="page-button" id="btn8">Памятка по уходу и пользованию съемным протезом</button>
+        <button class="page-button" id="btn9">Памятка по уходу</button>
+        <button class="page-button" id="btn10">Ортодонтическое лечение</button>
+    </div>
+    <div class="right-column" id="right-column">
+        <div class="content" id="cnt1" style="display: block; font-size: 28px;">
+            <p>Запись на платной основе <b>(медицинские услуги, предоставляемые на возмездной основе за счет личных
+                    средств
+                    граждан, средств юридических лиц и иных средств на основании договоров, в том числе договоров
+                    добровольного
+                    медицинского страхования)</b> возможна при личном обращении в регистратуру, а также по телефону колл
+                –
+                центра
+                поликлиники +7 (4722) 257 – 157</p>
+            <p style="text-align: center; font-weight: bold; text-decoration: underline;">❗ Срок предоставления платных
+                медицинских услуг устанавливается договором на оказание платных медицинских
+                услуг в зависимости от индивидуального объема оказываемых услуг.❗</p>
+        </div>
+
+        <div class="content" id="page1" style="display: none;"></div>
+        <div class="content" id="page2" style="display: none;"></div>
+        <div class="content" id="page3" style="display: none;"></div>
+        <div class="content" id="page4" style="display: none;"></div>
+        <div class="content" id="page5" style="display: none;"></div>
+        <div class="content" id="page6" style="display: none;"></div>
+        <div class="content" id="page7" style="display: none;"></div>
+        <div class="content" id="page8" style="display: none;"></div>
+        <div class="content" id="page9" style="display: none;"></div>
+        <div class="content" id="page10" style="display: none;"></div>
+    </div>
+    <script>
+        document.addEventListener("copy", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+document.getElementById("back-button").addEventListener("click", function () {
+  window.location.href = "lechebbno_prof_otd.html";
+});
+
+function hideAllContent() {
+  const allContent = document.querySelectorAll(".content");
+  allContent.forEach((content) => {
+    content.style.display = "none";
+  });
+}
+
+const button1 = document.getElementById("btn1");
+const button2 = document.getElementById("btn2");
+const button3 = document.getElementById("btn3");
+const button4 = document.getElementById("btn4");
+const button5 = document.getElementById("btn5");
+const button6 = document.getElementById("btn6");
+const button7 = document.getElementById("btn7");
+const button8 = document.getElementById("btn8");
+const button9 = document.getElementById("btn9");
+const button10 = document.getElementById("btn10");
+
+const content1 = document.getElementById("page1");
+const content2 = document.getElementById("page2");
+const content3 = document.getElementById("page3");
+const content4 = document.getElementById("page4");
+const content5 = document.getElementById("page5");
+const content6 = document.getElementById("page6");
+const content7 = document.getElementById("page7");
+const content8 = document.getElementById("page8");
+const content9 = document.getElementById("page9");
+const content10 = document.getElementById("page10");
+
+button1.addEventListener("click", () => {
+  hideAllContent();
+  content1.style.display = "flex";
+});
+
+button2.addEventListener("click", () => {
+  hideAllContent();
+  content2.style.display = "flex";
+});
+
+button3.addEventListener("click", () => {
+  hideAllContent();
+  content3.style.display = "flex";
+});
+
+button4.addEventListener("click", () => {
+  hideAllContent();
+  content4.style.display = "flex";
+});
+
+button5.addEventListener("click", () => {
+  hideAllContent();
+  content5.style.display = "flex";
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    button1.addEventListener("click", function () {
+      var pdfUrl = "/pdf/ТО3/КАРИЕС ЗУБОВ.pdf"; // Путь к вашему PDF-файлу
+      var pdfContainer = content1;
+  
+      // Очищаем контейнер
+      while (pdfContainer.firstChild) {
+        pdfContainer.removeChild(pdfContainer.firstChild);
+      }
+  
+      // Загружаем PDF-файл
+      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(function (page) {
+            var viewport = page.getViewport({ scale: 1.7 });
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+  
+            // Добавляем страницу в контейнер
+            pdfContainer.appendChild(canvas);
+          });
+        }
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    button2.addEventListener("click", function () {
+      var pdfUrl = "/pdf/ТО3/Пульпит..pdf"; // Путь к вашему PDF-файлу
+      var pdfContainer = content2;
+  
+      // Очищаем контейнер
+      while (pdfContainer.firstChild) {
+        pdfContainer.removeChild(pdfContainer.firstChild);
+      }
+  
+      // Загружаем PDF-файл
+      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(function (page) {
+            var viewport = page.getViewport({ scale: 1.7 });
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+  
+            // Добавляем страницу в контейнер
+            pdfContainer.appendChild(canvas);
+          });
+        }
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    button3.addEventListener("click", function () {
+      var pdfUrl = "/pdf/ТО3/Апикальный периодонтит.pdf"; // Путь к вашему PDF-файлу
+      var pdfContainer = content3;
+  
+      // Очищаем контейнер
+      while (pdfContainer.firstChild) {
+        pdfContainer.removeChild(pdfContainer.firstChild);
+      }
+  
+      // Загружаем PDF-файл
+      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(function (page) {
+            var viewport = page.getViewport({ scale: 1.7 });
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+  
+            // Добавляем страницу в контейнер
+            pdfContainer.appendChild(canvas);
+          });
+        }
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    button4.addEventListener("click", function () {
+      var pdfUrl = "/pdf/ТО3/ПАМЯТКА ДЛЯ ПАЦИЕНТА ПОСЛЕ ЛЕЧЕНИЯ ЗУБА.pdf"; // Путь к вашему PDF-файлу
+      var pdfContainer = content4;
+  
+      // Очищаем контейнер
+      while (pdfContainer.firstChild) {
+        pdfContainer.removeChild(pdfContainer.firstChild);
+      }
+  
+      // Загружаем PDF-файл
+      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(function (page) {
+            var viewport = page.getViewport({ scale: 1.7 });
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+  
+            // Добавляем страницу в контейнер
+            pdfContainer.appendChild(canvas);
+          });
+        }
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    button5.addEventListener("click", function () {
+      var pdfUrl = "/pdf/ТО3/ПАМЯТКА ДЛЯ ПАЦИЕНТА ПОСЛЕ ЭНДОДОНТИЧЕСКОГО ЛЕЧЕНИЯ.pdf"; // Путь к вашему PDF-файлу
+      var pdfContainer = content5;
+  
+      // Очищаем контейнер
+      while (pdfContainer.firstChild) {
+        pdfContainer.removeChild(pdfContainer.firstChild);
+      }
+  
+      // Загружаем PDF-файл
+      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(function (page) {
+            var viewport = page.getViewport({ scale: 1.7 });
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+  
+            // Добавляем страницу в контейнер
+            pdfContainer.appendChild(canvas);
+          });
+        }
+      });
+    });
+  });
+    </script>
+</body>
+
+</html>

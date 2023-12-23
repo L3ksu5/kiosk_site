@@ -14,7 +14,7 @@ function hideAllContent() {
 }
 
 document.getElementById("back-button").addEventListener("click", function () {
-  window.location.href = "index.html";
+  window.location.href = "page-oms.html";
 });
 
 const button1 = document.getElementById("btn1");

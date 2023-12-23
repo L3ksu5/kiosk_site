@@ -25,6 +25,7 @@ const button4 = document.getElementById("schedule");
 const button5 = document.getElementById("contact");
 const button6 = document.getElementById("founder");
 const button7 = document.getElementById("usrle");
+const button8 = document.getElementById("btn1");
 
 const content1 = document.getElementById("about");
 const content2 = document.getElementById("map");
@@ -34,6 +35,9 @@ const content5 = document.getElementById("contact-tab");
 const content6 = document.getElementById("founder-info");
 const content7 = document.getElementById("usrle-pages");
 const content8 = document.getElementById("bus");
+const content9 = document.getElementById("page1");
+
+
 
 button1.addEventListener("click", () => {
   hideAllContent();
@@ -69,6 +73,11 @@ button6.addEventListener("click", () => {
 button7.addEventListener("click", () => {
   hideAllContent();
   content7.style.display = "flex";
+});
+
+button8.addEventListener("click", () => {
+  hideAllContent();
+  content9.style.display = "flex";
 });
 
 ymaps.ready(init);
@@ -175,6 +184,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  button8.addEventListener("click", function () {
+    var pdfUrl =
+      "/pdf/Сводная ведомость результатов проведения СОУТ 2021 (2).pdf"; // Путь к вашему PDF-файлу
+    var pdfContainer = content9;
+
+    // Очищаем контейнер
+    while (pdfContainer.firstChild) {
+      pdfContainer.removeChild(pdfContainer.firstChild);
+    }
+
+    // Загружаем PDF-файл
+    pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+      for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+        pdf.getPage(pageNumber).then(function (page) {
+          var viewport = page.getViewport({ scale: 1.7 });
+          var canvas = document.createElement("canvas");
+          var context = canvas.getContext("2d");
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          page.render({ canvasContext: context, viewport: viewport });
+
+          // Добавляем страницу в контейнер
+          pdfContainer.appendChild(canvas);
+        });
+      }
+    });
+  });
+});
+
 
 fetch("/.vscode/settings.json")
   .then((response) => response.json())

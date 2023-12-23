@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru_RU">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Раздел 5</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div class="left-column">
+        <button class="page-button" id="back-button">Назад</button>
+    </div>
+    <div class="right-column" id="right-column">
+        <div class="content" id="cnt1" style="display: block; font-size: 28px;">
+            <p>Рентгенологические услуги:</p>
+            <ul>
+                <li>Проведение и описание КЛКТ (Конусно-лучевая компьютерной томографии) сегмента, верхней челюсти, нижней челюсти, височно-нижнечелюстных суставов, придаточных пазух носа, запись исследования на диск</li>
+                <li>Чтение конусно-лучевых компьютерных томографий сторонних организаций</li>
+                <li>Проведение и описание ОПТГ (Ортопантомографии)</li>
+                <li>Проведение и описание дентальной радиовизиографии (прицельные дентальные снимки) </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("copy", function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        document.getElementById("back-button").addEventListener("click", function () {
+            window.location.href = "xray.html";
+        });
+    </script>
+    <!-- <script src="/script_uslugito3.js"></script> -->
+</body>
+
+</html>

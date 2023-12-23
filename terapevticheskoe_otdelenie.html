@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru_RU">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Раздел 5</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div class="popup" id="popup1" style="width: 96%; margin-top: 20px;">
+        <button class="close-popup-button" id="closePopup1">Закрыть</button>
+        <div class="content" id="page1"></div>
+    </div>
+    <div class="button-container">
+        <a href="page_platnoe.html" class="button">Назад</a>
+        <button class="button" data-popup-target="popup1" id="pop1">Методы оказания медицинской помощи</button>
+        <a href="to3okazuslug.html" class="button">Оказываемые услуги</a>
+        <a href="personalto3.html" class="button">Сотрудники</a>
+    </div>
+    <script src="/script_to3.js"></script>
+    <script>
+        function hideAllContent() {
+            const allContent = document.querySelectorAll(".content");
+            allContent.forEach((content) => {
+                content.style.display = "none";
+            });
+        }
+
+        function showLoadingIndicator(container) {
+            const loadingIndicator = document.createElement("div");
+            loadingIndicator.className = "loading-indicator";
+            loadingIndicator.innerHTML = "Loading...";
+            container.appendChild(loadingIndicator);
+        }
+
+        function hideLoadingIndicator(container) {
+            const loadingIndicator = container.querySelector(".loading-indicator");
+            if (loadingIndicator) {
+                container.removeChild(loadingIndicator);
+            }
+        }
+
+        async function loadAndDisplayPDF(buttonId, contentId, pdfUrl) {
+            const button = document.getElementById(buttonId);
+            const content = document.getElementById(contentId);
+            let pdfContainer = null;
+            let pdf;
+
+            button.addEventListener("click", async () => {
+                content.style.display = "flex";
+
+                if (pdfContainer === null) {
+                    pdfContainer = content;
+
+                    // Показать индикатор загрузки
+                    showLoadingIndicator(pdfContainer);
+
+                    try {
+                        pdf = await loadPDF(pdfUrl);
+
+                        // Скрыть индикатор загрузки после успешной загрузки PDF
+                        hideLoadingIndicator(pdfContainer);
+
+                        // Рендер первой страницы
+                        await renderPage(pdf, 1, pdfContainer);
+
+                        // Динамическая загрузка и рендеринг остальных страниц при прокрутке внутри контейнера
+                        pdfContainer.addEventListener("scroll", async () => {
+                            const containerHeight = pdfContainer.clientHeight;
+                            const totalHeight = pdfContainer.scrollHeight;
+                            const currentScroll = pdfContainer.scrollTop + containerHeight;
+
+                            // Порог для начала загрузки следующей страницы (например, 90% высоты)
+                            const threshold = 0.9;
+
+                            if (currentScroll / totalHeight > threshold) {
+                                const currentPage = pdfContainer.childElementCount + 1;
+                                if (currentPage <= pdf.numPages) {
+                                    await renderPage(pdf, currentPage, pdfContainer);
+                                }
+                            }
+                        });
+                    } catch (error) {
+                        // Обработка ошибок при загрузке PDF
+                        console.error(error.message);
+                        hideLoadingIndicator(pdfContainer);
+                    }
+                }
+            });
+        }
+
+        async function loadPDF(pdfUrl) {
+            try {
+                const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+                return pdf;
+            } catch (error) {
+                throw new Error("Error loading PDF: " + error.message);
+            }
+        }
+
+        async function renderPage(pdf, pageNumber, container) {
+            const page = await pdf.getPage(pageNumber);
+            const viewport = page.getViewport({ scale: 1.7 });
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render({ canvasContext: context, viewport: viewport });
+            container.appendChild(canvas);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const popupButtons = document.querySelectorAll(".button");
+
+            popupButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const targetId = button.getAttribute("data-popup-target");
+                    const popup = document.getElementById(targetId);
+
+                    if (popup) {
+                        popup.style.display = "flex";
+                    }
+                });
+            });
+
+            for (let i = 1; i <= 3; i++) {
+                const closePopupButton = document.getElementById(`closePopup${i}`);
+                if (closePopupButton) {
+                    closePopupButton.addEventListener("click", function () {
+                        closePopupButton.closest(".popup").style.display = "none";
+                    });
+                }
+            }
+        });
+
+        // Пример использования:
+        loadAndDisplayPDF(
+            "pop1",
+            "page1",
+            "/pdf/вертушка/Терапия по шаблону ХО.pdf"
+        );
+    </script>
+</body>
+
+</html>
